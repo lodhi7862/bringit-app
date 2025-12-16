@@ -1,0 +1,197 @@
+Build a private, family-only mobile application called “BringIt” that helps families coordinate grocery and errand tasks without using public chat apps.
+
+This is not a shopping or delivery app.
+It is a family coordination tool for sending and completing errands.
+
+Core Concept
+
+The app has two clearly separated systems:
+
+Saved Items – permanent, reusable catalog
+
+Orders – temporary task lists sent between family members
+
+Saved Items must persist forever unless deleted.
+Orders are created, completed, and archived.
+
+Users & Identity (v1)
+
+No email, password, or phone number authentication
+
+User creation requires:
+
+Name
+
+Optional profile photo
+
+App generates:
+
+Unique user ID
+
+Shareable QR code
+
+Family Network (Private by Default)
+
+Each user belongs to one private family network
+
+Users connect by:
+
+Scanning a QR code
+
+Entering a user code
+
+Connections must be accepted
+
+Rules
+
+Users can only see connected family members
+
+Orders can only be sent within the same network
+
+No public users
+
+No global search
+
+Saved Items (Permanent Catalog)
+Definition
+
+A Saved Item is a reusable item stored in the user’s personal catalog.
+
+Fields
+
+Photo (recommended)
+
+Item name (optional)
+
+Last used note (optional)
+
+Behavior
+
+When an item is added to an order, it is automatically saved
+
+Removing an item from an order does NOT delete it
+
+Items remain until explicitly deleted
+
+Orders
+Order Model
+
+Order ID
+
+Sender
+
+Receiver
+
+List of Order Items
+
+Status:
+
+Pending
+
+In Progress
+
+Completed
+
+Timestamp
+
+Parent (Sender) Flow
+
+Tap New Order
+
+Add items using:
+
+Saved items
+
+Camera (take new photo)
+
+For each item:
+
+Quantity (number)
+
+Optional note (free text like “any brand” or “large pack”)
+
+Review order
+
+Select connected family member
+
+Send order
+
+UI must always show:
+“Sending to: [Receiver Name]”
+
+No strict units. Use human-friendly language.
+
+Receiver (Completer) Flow
+Receiving Orders
+
+Push notification:
+“New order from [Sender Name]”
+
+Order screen shows:
+
+Sender name
+
+Item list with photos and notes
+
+Completing Items
+
+For each item:
+
+Mark as Done / Found
+
+Optional:
+
+Add photo of purchased item
+
+Add clarification note
+
+Order status updates in real time.
+
+Completing Order
+
+Receiver taps Order Complete
+
+Sender receives confirmation
+
+Order moves to history
+
+Order Status Logic
+
+Pending → no items completed
+
+In Progress → at least one item completed
+
+Completed → receiver confirms completion
+
+Notifications (v1)
+
+New order received
+
+Order completed
+
+Technical Requirements
+Suggested Stack
+
+Frontend: Flutter or React Native
+
+Backend: Firebase
+
+Firestore for data
+
+Firebase Storage for images
+
+Firebase Cloud Messaging for notifications
+
+Data Models
+
+User
+
+Network
+
+SavedItem
+
+Order
+
+OrderItem
+
+Schemas should be simple and readable.

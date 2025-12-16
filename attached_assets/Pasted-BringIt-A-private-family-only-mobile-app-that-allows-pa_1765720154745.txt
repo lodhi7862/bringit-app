@@ -1,0 +1,282 @@
+BringIt
+A private, family-only mobile app that allows parents to send grocery or errand orders to their children or trusted family members. Parents create orders using saved items or photos. Items are permanently stored for reuse. Orders can only be sent within an isolated family network. The receiver completes items step-by-step and confirms completion.
+Problem Statement
+Families frequently delegate grocery and errand tasks to children or relatives. Today, this happens through unstructured messages (e.g., WhatsApp), which leads to:
+•
+Confusion about what to buy
+•
+Too many clarification calls
+•
+Forgotten items
+•
+No visibility into progress
+Existing shopping apps are built for individuals or deliveries — not for family delegation.
+Target Users
+Primary
+•
+Parents (30–60)
+•
+Children / young adults (15–30)
+Context of Use
+•
+Grocery shopping
+•
+Pharmacy runs
+•
+Household items
+•
+Local store errands
+Core Principles
+1.
+Private by default – families only
+2.
+Visual first – photos over text
+3.
+Low effort for parents
+4.
+Simple, human language (not strict units)
+5.
+Reusable – items don’t disappear
+App Structure (High Level)
+Two Main Concepts
+1.
+Saved Items – permanent catalog
+2.
+Orders – temporary, sent to a person
+These must be clearly separated in logic and UI.
+Identity & Networks
+User Creation (v1)
+•
+User enters:
+o
+Name
+o
+Optional profile photo
+•
+App generates:
+o
+Unique user ID
+o
+QR code
+No passwords or emails required in v1.
+Family Network (Isolated Connections)
+•
+Each user belongs to one private network (family)
+•
+Users connect by:
+o
+Scanning QR code
+o
+Entering user code
+•
+Connection must be accepted
+Rules
+•
+Only connected users can see each other
+•
+Orders can only be sent within the same network
+•
+No global search, no public users
+Saved Items (Permanent)
+What Is a Saved Item?
+A reusable item that lives in the user’s personal catalog.
+Fields
+•
+Photo (recommended)
+•
+Item name (optional)
+•
+Last used note (optional)
+Examples:
+•
+“Milk packet”
+•
+“Atta”
+•
+“Cooking oil”
+Behavior
+•
+When an item is added to an order, it is saved automatically
+•
+Items remain available until explicitly deleted
+•
+Removing an item from an order does not delete it from saved items
+Orders
+Order Structure
+•
+Order ID
+•
+Sender
+•
+Receiver
+•
+List of items
+•
+Status:
+o
+Pending
+o
+In Progress
+o
+Completed
+•
+Timestamp
+Parent (Sender) Experience
+Create Order Flow
+1.
+Tap “New Order”
+2.
+Add items via:
+a.
+Saved items
+b.
+Camera (take new photo)
+3.
+For each item:
+a.
+Quantity (number)
+b.
+Optional note (free text)
+4.
+Review order
+5.
+Select connected person
+6.
+Send
+Important UI Note Always show:
+Sending to: [Name]
+Item Details (Simplified)
+Required
+•
+Photo OR name
+•
+Quantity (number)
+Optional
+•
+Note (free text)
+o
+“1 kg”
+o
+“Large pack”
+o
+“Any brand”
+No strict units in v1.
+Receiver (Completer) Experience
+Receive Order
+•
+Push notification: “New order from Ammi”
+•
+Open order to see:
+o
+Sender name
+o
+List of items with photos and notes
+Completing Items
+For each item:
+•
+Mark as:
+o
+Found / Done
+•
+Optional:
+o
+Add photo of purchased item
+o
+Add clarification note
+Order status updates in real time.
+Completing Order
+•
+Tap “Order Complete”
+•
+Sender receives confirmation
+•
+Order moves to history
+Order Status Logic
+•
+Pending – No items completed
+•
+In Progress – At least one item completed
+•
+Completed – Receiver confirms completion
+Notifications
+•
+New order received
+•
+Order completed
+•
+(Optional later) Item clarification added
+Success Metrics (For v1)
+Quantitative
+•
+Orders created per family per week
+•
+Completion rate
+•
+Average items per order
+•
+Repeat usage
+Qualitative
+•
+Families stop using WhatsApp for errands
+•
+Fewer clarification calls/messages
+Technical Considerations
+Suggested Stack
+•
+Frontend: Flutter or React Native
+•
+Backend: Firebase
+o
+Firestore (users, networks, orders)
+o
+Firebase Storage (images)
+o
+Firebase Cloud Messaging (notifications)
+Key Data Models
+•
+User
+•
+Network
+•
+SavedItem
+•
+Order
+•
+OrderItem
+Keep schemas simple.
+Milestones & Sequencing
+Milestone 1 (XX weeks)
+•
+User creation
+•
+Family connections
+•
+Network isolation
+Milestone 2 (XX weeks)
+•
+Saved items
+•
+Order creation & sending
+•
+Order receiving
+Milestone 3 (XX weeks)
+•
+Item completion
+•
+Notifications
+•
+Order history
+Explicit Non-Goals (v1)
+•
+Payments
+•
+Store integrations
+•
+Delivery tracking
+•
+Public users
+•
+Ratings or reviews
+Final Product Opinion
+This is not a grocery app. This is a family coordination tool.
+If you keep that mental model, your decisions will stay correct.

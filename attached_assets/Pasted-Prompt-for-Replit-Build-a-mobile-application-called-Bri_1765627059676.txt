@@ -1,0 +1,295 @@
+Prompt for Replit
+
+Build a mobile application called BringIt — a fully local, family-only coordination app for grocery and errand delegation between parents and children.
+
+Core Rule (Very Important)
+
+ALL DATA MUST BE LOCAL.
+
+No cloud services
+
+No backend servers
+
+No Firebase
+
+No cloud storage
+
+No authentication providers
+
+Everything runs offline-first and is stored on-device.
+
+Core Idea
+
+BringIt is not a grocery delivery app.
+It is a private family coordination tool that replaces unclear WhatsApp messages with a simple, visual workflow.
+
+Target Users
+
+Parents (30–60): create and send orders
+
+Children / young adults (15–30): receive and complete orders
+
+Core Principles
+
+Private by default — family only
+
+Visual first — photos over text
+
+Low effort for parents
+
+Simple, human language (no strict units)
+
+Reusable items — nothing disappears unless deleted
+
+Offline-first — works without internet
+
+App Structure (Strict Separation)
+
+The app must clearly separate:
+
+Saved Items (permanent catalog)
+
+Orders (temporary tasks)
+
+These are separate data models and UI sections.
+
+Identity & Family Network (Local Only)
+User Creation (v1)
+
+User enters:
+
+Name
+
+Optional profile photo
+
+App generates:
+
+Unique local user ID
+
+Local QR code (encodes user ID)
+
+No passwords, emails, or accounts.
+
+Family Network
+
+Family members connect by:
+
+Scanning QR code
+
+OR entering user code manually
+
+Connection requires acceptance
+
+Connections exist only on the device
+
+Rules
+
+Only connected users are visible
+
+Orders can only be sent to connected users
+
+No global users
+
+No internet dependency
+
+Image Handling (Critical Requirement)
+Image Pipeline
+
+When a photo is taken or selected:
+
+Resize image to a small fixed resolution (e.g. 64×64 or 128×128)
+
+Extract RGB pixel values
+
+Convert image into an SVG representation
+
+Store SVG data or RGB arrays as local variables
+
+Delete the original bitmap image
+
+No image files are stored.
+No cloud storage is used.
+
+SVGs are used for:
+
+Saved items
+
+Order items
+
+Thumbnails and previews
+
+Saved Items (Permanent, Local)
+
+A Saved Item is a reusable item stored locally on the device.
+
+Fields
+
+SVG image data (generated from photo)
+
+Optional item name
+
+Optional last-used note
+
+Behavior
+
+Adding an item to an order automatically saves it
+
+Items persist locally until explicitly deleted
+
+Removing an item from an order does not remove it from saved items
+
+Orders
+Order Structure
+
+Local Order ID
+
+Sender (local user)
+
+Receiver (connected family member)
+
+List of items
+
+Status:
+
+Pending
+
+In Progress
+
+Completed
+
+Local timestamp
+
+Parent (Sender) Flow
+
+Tap New Order
+
+Add items via:
+
+Saved items
+
+Camera (new photo → converted to SVG)
+
+For each item:
+
+Quantity (number)
+
+Optional note (free text like “1 kg”, “large pack”, “any brand”)
+
+Review order
+
+Select connected family member
+
+Send order locally
+
+UI must always show:
+“Sending to: [Name]”
+
+Receiver (Completer) Flow
+Receiving an Order
+
+Local notification: “New order from Ammi”
+
+Order screen shows:
+
+Sender name
+
+List of items with SVG previews, quantity, and notes
+
+Completing Items
+
+For each item:
+
+Mark as Found / Done
+
+Optional:
+
+Add clarification note
+
+Replace item SVG if needed (new photo → SVG)
+
+Order status updates immediately on the device.
+
+Completing Order
+
+Tap Order Complete
+
+Sender receives local confirmation
+
+Order moves to history
+
+Order Status Logic
+
+Pending → no items completed
+
+In Progress → at least one item completed
+
+Completed → receiver confirms completion
+
+Notifications (Local)
+
+New order received
+
+Order completed
+
+No push notifications (offline only)
+
+Local Storage
+
+Use local storage only:
+
+SQLite / Room / Hive / AsyncStorage (platform choice allowed)
+
+Store:
+
+Users
+
+Family connections
+
+Saved items (SVG / RGB arrays)
+
+Orders and order items
+
+Keep schemas simple and readable.
+
+Success Criteria (v1)
+
+Works fully offline
+
+No cloud dependencies
+
+Clear visual orders
+
+Reduced clarification between family members
+
+Reusable item catalog works reliably
+
+Explicit Non-Goals (v1)
+
+Cloud sync
+
+Accounts or login
+
+Payments
+
+Store integrations
+
+Delivery tracking
+
+Public users
+
+Ratings or reviews
+
+Final Guiding Principle
+
+This is not a grocery app.
+This is a local-first family coordination tool.
+
+Every design and technical decision must respect:
+
+Privacy
+
+Simplicity
+
+Offline usage
+
+Visual clarity
